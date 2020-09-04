@@ -1,0 +1,47 @@
+#logo {
+	width:45px;
+	height:45px;
+	color:grey;
+	padding:2px;
+	margin-left:5px;
+	
+}
+#log {
+	color:black;
+	font-weight:bolder;
+	font-size:30px;
+}
+#sign {
+	height:40px;
+	margin:4px;
+}
+.header {
+	background-color:grey;
+	height:50px;
+	margin:5px;
+}
+.loginpanel {
+	text-align:center;
+	
+}
+.login {
+	background-image:url("img/background.jpeg");
+	padding:30px;
+	font-weight:bolder;
+	font-size:20px;
+}
+
+.modal-header {
+	background-color:orange;
+}
+.modal-title {
+	font-weight:bolder;
+	font-size:25px;
+}
+.modal-body {
+	font-weight:bolder;
+	background-color:lightgrey;
+}
+.modal-footer {
+	background-color:lightgrey;
+}
