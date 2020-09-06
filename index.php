@@ -3,20 +3,30 @@ session_start();
 $message="";
 $error="";
 
-if(count($_POST)>0) {
+if($_POST["email"]!="" && $_POST["password"]!="" && $_POST["confirmpassword"]=="") {
 	$conn = mysqli_connect("localhost","root","12345678","mydb");
-	$result = mysqli_query($conn,"SELECT * FROM user WHERE email='" . $_POST["email"] . "' and password = '". $_POST["password"]."'");
+	$result = mysqli_query($conn,"SELECT * FROM user WHERE email='" . $_POST["email"] . "' and password = '". md5($_POST["password"])."'");
 	$count  = mysqli_num_rows($result);
 	if($count==0) {
 		$message = "Invalid Username or Password!";
-	} 
-
-	
-	
-	
+	}
 	else {
 		$_SESSION["user"] = "".$_POST["email"];
 		header("Location: loggedin.php");
+	}
+}
+else if($_POST["email"]!="" && $_POST["password"]!="" && $_POST["confirmpassword"]!=""){
+	
+	if ($_POST["password"]==$_POST["confirmpassword"])
+	{
+		include ("connectdb.php");
+		$sql = "INSERT INTO user (email, password, diary) VALUES ('".$_POST["email"]."', '".md5($_POST["password"])."' , '')";
+		mysqli_query($conn,$sql);
+		$_SESSION["user"] = "".$_POST["email"];
+		header("Location: loggedin.php");
+	}
+	else {
+		echo alert("Password doesn't match");
 	}
 }
 
@@ -24,7 +34,7 @@ if(count($_POST)>0) {
 <!doctype HTML>
 <html>
 <head>
-	<title>Bootstrap Example</title>
+	<title>Log In</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -48,14 +58,12 @@ if(count($_POST)>0) {
           <h4 class="modal-title ">Sign Up</h4>
         </div>
         <div class="modal-body">
-			<form method="POST">
+			<form method="post">
 				<div class="error"><?php if($error!="") { echo $error; } ?></div><br/>
 				E-mail : <input type="email" name="email" id="email" placeholder="Your email" required></input><br/><br/>
 				Password : <input type="password" name="password" id="password" placeholder="password" required></input><br/><br/>
 				Confirm Password : <input type="password" name="confirmpassword" id="confirmpassword" placeholder="confirm password" required></input><br/><br/>
-				Stayloggedin : <input type="checkbox" name="stayloggedin" ></input><br/><br/>
-				<input type="submit" id="signup"  name="submit" value="Sign Up"></input>
-				
+				<input type="submit" id="signup" class="btn btn-success" value="Sign up"></input>
 			</form>
         </div>
         <div class="modal-footer">
@@ -68,7 +76,7 @@ if(count($_POST)>0) {
   
   <div class="header row row-content">
 	<div class="col-md-11"><a href="#" id="log"><img id="logo" src="img/logo.png"> Secret Diary</a></div>
-	<div class="col-md-1"><button type="button" id="sign" class="btn btn-success btn-lg" data-toggle="modal" data-target="#signupbox">Sign Up</button></div>
+	<div class="col-md-1"><button type="button" id="sign" class="btn btn-lg" data-toggle="modal" data-target="#signupbox">Sign Up</button></div>
 	
   </div>
   <div class="loginpanel container">
@@ -77,30 +85,12 @@ if(count($_POST)>0) {
 		<div class="error"><?php if($message!="") { echo $message; } ?></div><br/>
 		E-mail : <input type="email" name="email" placeholder="Your email" required></input><br/><br/>
 		Password : <input type="password" name="password" placeholder="password" required></input><br/><br/>
-		Stayloggedin : <input type="checkbox" name="stayloggedin" ></input><br/><br/>
-		<input type="submit" name="submit" id="loginbtn" value="Log in"></input>
+		<input type="submit" name="submit" id="loginbtn"  class="btn btn-success" value="Log in"></input>
 	</form>
 
   </div>
 
-   <script type="text/javascript">
-		
-		$("#signup").click(function() {
-			if( $("#password").val() == $("#confirmpassword").val()){
- 			  $.ajax({
-				  method: "POST",
-				  url: "insertdata.php",
-				  data: { email: $("#email").val(),password:$("#password").val() }
-				});
-	
-			}
-			else {
-				alert("Password Doesn't Match");
-			}
-
-		});
-
-	</script>
+   
 
   
 	

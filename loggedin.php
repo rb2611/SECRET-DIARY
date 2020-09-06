@@ -10,7 +10,6 @@
 				$content = $row["diary"];
 				}
 			}
-			
 			else {
 				$content = "Write Your Secret Here...";
 			}
@@ -50,6 +49,13 @@
 				  data: { content: $("#diary-text").val() }
 				});
 
+		});
+		$("#logout").click(function() {
+			$.ajax({
+				method: "POST",
+				url: "logout.php"
+			});
+			window.open("index.php", "_self");
 		});
 
 	</script>
