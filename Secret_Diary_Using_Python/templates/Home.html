@@ -1,0 +1,141 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Secret Diary</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="loggedin.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        #logo {
+            width:45px;
+            height:45px;
+            color:grey;
+            
+        }
+        #log {
+            color:white;
+            font-weight: bolder;
+            text-decoration: none;
+            font-size: larger;
+        }
+        #logout {
+            height:40px;
+            margin:4px;
+        }
+        .header {
+            background-color:grey;
+            height:50px;
+            margin:5px;
+            border:2px solid #f2f2f2;
+        }
+
+        .text {
+            padding:10px;
+            text-align: center;
+        }
+        #diary-text {
+            width:100%;
+            height:600px;
+            border:5px solid #f2f2f2;
+            background-image:url("{% static '/img/background.jpg' %}");
+            color:#f2f2f2;
+            font-weight:bolder;
+            font-size:20px;
+            
+        }
+        body {
+            background-color:black;
+        }
+        .footer {
+            background-color:grey;
+            height:50px;
+            margin:5px;
+            text-align:center;
+            padding:15px;
+            font-size:20px;
+            font-weight:bolder;
+            color:#f2f2f2;
+            border:2px solid #f2f2f2;
+        }
+        #uname {
+            
+            text-align:center;
+            margin-left:10px;
+            font-weight: bolder;
+            color: black;
+        }
+
+        #profile-pic {
+            width:45px;
+            height:45px;
+            border-radius: 50%;
+        }
+
+        /* dropdown menu */
+
+        .dropbtn {
+            color: black;
+            font-size: 16px;
+            border: none;
+            margin-left: 80px;
+        
+        }
+
+        .dropdown {
+        position: relative;
+        display: inline-block;
+        }
+
+        .dropdown-content {
+        display: none;
+        margin-left: 80px;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+        }
+
+        .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        }
+
+        .dropdown-content a:hover {background-color: #ddd;}
+
+        .dropdown:hover .dropdown-content {display: block;}
+
+        .dropdown:hover .dropbtn {background-color:None;
+        text-decoration: none;}
+    </style>
+</head>
+<body>
+	<div class="header row row-content">
+		<div class="col-xs-10"><a href="#" id="log"><img id="logo" src="{% static '/img/logo.png' %}">SECRET DIARY</a>
+        </div>
+		<div class="col-xs-2">
+            <div class="dropdown">
+                <a class="dropbtn">{% for i in diarydetail %}{% if i.img == "None" %}<img id="profile-pic" src="{% static 'img/profile.png' %}">{% else %}<img id="profile-pic" src="{{ i.img.url }}" >{% endif %}&nbsp;&nbsp;{{ request.user }}{% endfor %}</a>
+                <div class="dropdown-content">
+                    <a href="/edit-profile">Edit Profile</a>
+                    <a href="/logout">Logout</a>
+                </div>
+            </div>
+        </div>
+	</div>
+	<div class="text">
+        <form method="POST" action="/">
+            {% csrf_token %}
+    		<textarea id="diary-text" name="detail" placeholder="Start writing">{% for i in diarydetail %}{% if i.detail %}{{ i.detail}}{% else %}Start Writing Your Secret Diary{% endif %}{% endfor %}</textarea>
+            <button type="submit" id="save" class="btn btn-success btn-lg">Save</button>
+        </form>    
+	</div>
+	<div class="footer">FOOTER</div>
+</body>
+</html>
