@@ -6,73 +6,11 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-	<link rel="stylesheet" href="login.css">
+	<link rel="stylesheet" href="{% static '/css/LoginPage.css' %}">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	<style>
-		.error {
-			color:red;
-		}
-
-        #logo {
-            width:45px;
-            height:45px;
-            color:grey;
-            padding:2px;
-            margin-left:5px;
-            
-        }
-        #log {
-            color:#f2f2f2;
-            font-weight:bolder;
-            font-size:30px;
-        }
-        #sign {
-            height:40px;
-            margin:4px;
-        }
-        #sign:hover {
-          background-color: lightgrey;
-        }
-        .header {
-            background-color:grey;
-            height:55px;
-            margin:5px;
-            border:5px solid #f2f2f2;
-            border-radius:2px;
-        }
-        .loginpanel {
-            text-align:center;
-            background-color:transparent;
-            margin-top:100px;
-            
-        }
-        .login {
-            background-color:transparent;
-            padding:30px;
-            font-weight:bolder;
-            font-size:20px;
-            color:white;
-        }
-        input {
-            background-color:lightgrey;
-            color:black;
-        }
-
-        .modal-header {
-            background-color:grey;
-        }
-        .modal-title {
-            font-weight:bolder;
-            font-size:25px;
-        }
-        .modal-body {
-            font-weight:bolder;
-            background-color:lightgrey;
-        }
-        .modal-footer {
-            background-color:lightgrey;
-        }
+		
 
         body {
             background-image:url("{% static 'img/background.jpg' %}");
@@ -97,7 +35,7 @@
 				Username : <input type="text" name="username" id="username" placeholder="Your username" required></input><br/><br/>
 				Password : <input type="password" name="password" id="password" placeholder="password" required></input><br/><br/>
 				Confirm Password : <input type="password" name="confirmpassword" id="confirmpassword" placeholder="confirm password" required></input><br/><br/>
-        Upload Profile Picture : <input type="file" name="profilepic" id="profilepic"></input><br/><br/>
+        Upload Profile Picture : <input type="file" name="profilepic" id="profilepic" required></input><br/><br/>
 				<input type="submit" id="signup" class="btn btn-success" value="Sign up"></input>
 			</form>
         </div>
